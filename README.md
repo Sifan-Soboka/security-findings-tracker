@@ -1,7 +1,5 @@
 # Security Findings and Evidence Tracker
 
-This is my second cybersecurity portfolio project. I built it to practise working with real vulnerability data and to understand how security teams can keep track of vulnerabilities and their remediation progress.
-
 The project uses data from the National Vulnerability Database (NVD) and displays vulnerability findings in a dashboard. Instead of just looking at a list of CVEs, I wanted to make it easier to search for findings, understand their severity, and keep track of which ones still need attention.
 
 ## What it does
