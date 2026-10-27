@@ -1,39 +1,66 @@
-# Security Findings & Evidence Tracker
+# Security Findings and Evidence Tracker
 
-A defensive vulnerability-management learning project. It imports CVE records from the supplied NVD JSON 2.0 recent feed, calculates transparent prioritization scores, stores findings in SQLite, and tracks remediation status and analyst evidence notes.
+This is my second cybersecurity portfolio project. I built it to practise working with real vulnerability data and to understand how security teams can keep track of vulnerabilities and their remediation progress.
 
-## Features
-- Parse multiple CVEs from the NVD JSON 2.0 feed.
-- Extract descriptions, CVSS scores, severity, dates, weaknesses, and NVD links.
-- Normalize CVSS into a 0–100 priority score when available.
-- Persist findings in SQLite while preserving remediation status and analyst notes on refresh.
-- Search/filter findings, review severity distribution, and export CSV/JSON reports.
+The project uses data from the National Vulnerability Database (NVD) and displays vulnerability findings in a dashboard. Instead of just looking at a list of CVEs, I wanted to make it easier to search for findings, understand their severity, and keep track of which ones still need attention.
 
-## Setup (Windows PowerShell)
-Run these commands from the folder containing `app.py`:
+## What it does
 
-```powershell
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
-python -m pip install -r requirements.txt
-python -m streamlit run app.py
-```
+- Loads vulnerability information from an NVD JSON dataset.
+- Displays CVE IDs, severity levels, CVSS scores, and priority scores.
+- Allows users to search and filter vulnerability findings.
+- Saves remediation statuses and notes in a local SQLite database.
+- Exports findings as CSV or JSON files.
+- Uses a risk-scoring system to help prioritise findings.
 
-Use the **Import / Refresh NVD Data** button in the dashboard sidebar.
+## Tools and technologies
 
-## Dataset
-The project includes `data/nvdcve-2.0-recent.json`, the dataset supplied for this project. The NVD recent feed is a limited recent-data feed, not the complete historical NVD database.
+- **Python** – main programming language
+- **Streamlit** – dashboard interface
+- **SQLite** – storing remediation statuses and notes
+- **Pandas** – working with vulnerability data
+- **NVD CVE data** – vulnerability dataset
+- **Pytest** – testing the risk-scoring logic
 
-## Database
-The application uses `data/security_findings_v2.db`. This separate filename intentionally avoids conflict with an older database schema from previous attempts. The old `data/security_findings.db` is not deleted or modified.
+## Running the project
 
-## Tests
-```powershell
-python -m unittest discover -s tests -v
-```
+You will need Python installed on your computer.
 
-## Scoring and limitations
-When a CVSS score exists, `Priority Score = CVSS base score × 10`. If CVSS is absent, the app uses a severity-based fallback. This score is a triage aid, not proof that a vulnerability is exploitable or that it affects a particular asset. The app does not scan devices or networks and does not determine actual organizational risk without asset context.
+1. Clone or download this repository.
+2. Open a terminal in the project folder.
+3. Create a virtual environment:
 
-## Ethical use
-Use this project for learning and defensive vulnerability management. Validate findings against vendor guidance and the assets in scope.
+   ```bash
+   python -m venv .venv
+   ```
+
+4. Install the required packages:
+
+   **Windows:**
+   ```powershell
+   .venv\Scripts\python.exe -m pip install -r requirements.txt
+   ```
+
+5. Start the dashboard:
+
+   ```powershell
+   .venv\Scripts\python.exe -m streamlit run app.py
+   ```
+
+6. Open the local URL shown in the terminal.
+
+The project uses a local database to save remediation updates, so those updates are stored on the computer running the application.
+
+## What I learned
+
+While building this project, I got more practice working with JSON data, Python modules, databases, and a dashboard interface. I also learned that getting data into an application is only one part of the work. It is important to handle the data properly and make the results useful to someone reviewing security findings.
+
+I had to troubleshoot issues with the database and project setup along the way, which helped me understand how the different files work together.
+
+## Current status
+
+The dashboard is working, and I have tested the risk-scoring logic. I plan to continue improving the project as I learn more about vulnerability management and security operations.
+
+## Disclaimer
+
+This project is for learning and portfolio purposes. The priority score is a project-defined way of organising findings and should not be treated as a complete assessment of real-world risk. The dataset may not include every current vulnerability or the latest available information.
